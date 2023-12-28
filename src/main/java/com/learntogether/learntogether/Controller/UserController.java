@@ -3,6 +3,7 @@ package com.learntogether.learntogether.Controller;
 import com.learntogether.learntogether.Dto.RegisterRequestDto;
 import com.learntogether.learntogether.Dto.RegisterResponseDto;
 import com.learntogether.learntogether.Entity.User;
+import com.learntogether.learntogether.Exception.UserAlreadyExistsException;
 import com.learntogether.learntogether.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,14 +14,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     UserService userService;
 
     @PostMapping("/create-user")
-    public ResponseEntity<String> createUser(@RequestBody RegisterRequestDto registerRequestDto){
+    public ResponseEntity createUser(@RequestBody RegisterRequestDto registerRequestDto) {
         try{
             userService.createUser(registerRequestDto);
         }
@@ -28,7 +29,7 @@ public class UserController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>("User created Successfully!", HttpStatus.CREATED);
+        return new ResponseEntity<>("User Created Successfully", HttpStatus.CREATED);
     }
 
     @GetMapping("/get-users")

@@ -23,24 +23,16 @@ public class Post {
 
     private String content;
 
-    @OneToOne
-    @JoinColumn(name="userId")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
     @JsonIgnore
-    User author;
+    private User user;
 
-    @ManyToOne
-    @JoinColumn(name="poolId")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
     @JsonIgnore
-    Pool pool;
-
-    @ManyToMany
-    @JoinColumn(name="userId")
-    @JsonIgnore
-    private List<User> usersBookmarked;
+    private Pool pool;
 
     @CreationTimestamp
     Date time;
-
-    @ManyToMany(mappedBy = "postsUpvoted")
-    List<User> usersUpvoted = new ArrayList<>();
 }

@@ -25,26 +25,11 @@ public class User {
 
     private String email;
 
-    private int ratings = 0;
-
-    private int noOfPostsReported = 0;
-
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
 
-    @ManyToMany(mappedBy = "usersJoined", cascade = CascadeType.ALL)
-    List<Pool> poolsJoined = new ArrayList<>();
+    List<Long> poolsJoined = new ArrayList<>();
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "user")
     List<Post> postsCreated = new ArrayList<>();
-
-    @ManyToMany(mappedBy = "usersBookmarked")
-    List<Post> bookmarkedPosts = new ArrayList<>();
-
-
-    @ManyToMany
-    @JoinColumn(name = "postId")
-    @JsonIgnore
-    private List<Post> postsUpvoted;
 }

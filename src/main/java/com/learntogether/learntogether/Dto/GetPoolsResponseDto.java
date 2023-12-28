@@ -1,6 +1,5 @@
 package com.learntogether.learntogether.Dto;
 
-
 import lombok.*;
 
 @AllArgsConstructor
@@ -9,8 +8,8 @@ import lombok.*;
 @Setter
 @Data
 @Builder
-public class CreatePostRequestDto {
-    String email;
-    String content;
-    String poolName;
+public class GetPoolsResponseDto {
+    private String poolName;
+    private String poolDescription;
+    private String poolOwner;
 }

@@ -20,19 +20,12 @@ public class Pool {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long poolId;
 
+    private Long ownerId;
     private String poolName;
     private String poolDescription;
-    @OneToOne
-    @JoinColumn(name = "userId")
-    @JsonIgnore
-    private User PoolOwner;
 
     @OneToMany(mappedBy = "pool")
-    @JsonBackReference
     List<Post> posts = new ArrayList<>();
 
-    @ManyToMany
-    @JoinColumn(name="userId")
-    @JsonIgnore
-    private List<User> usersJoined;
+    List<Long> usersJoined = new ArrayList<>();
 }

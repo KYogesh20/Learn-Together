@@ -2,6 +2,7 @@ package com.learntogether.learntogether.Controller;
 
 import com.learntogether.learntogether.Dto.BookmarkPostRequestDto;
 import com.learntogether.learntogether.Dto.CreatePostRequestDto;
+import com.learntogether.learntogether.Dto.GetPostsResponseDto;
 import com.learntogether.learntogether.Dto.UpvotePostRequestDto;
 import com.learntogether.learntogether.Entity.Post;
 import com.learntogether.learntogether.Entity.User;
@@ -30,50 +31,12 @@ public class PostController {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>("Post created Successfully!!", HttpStatus.CREATED);
-    }
-
-    @PostMapping("/upvote-post")
-    public ResponseEntity<String> upvotePost(@RequestBody UpvotePostRequestDto upvotePostRequestDto){
-        try{
-            postService.upvotePost(upvotePostRequestDto);
-        }
-        catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>("Post Upvoted Successfully!",HttpStatus.CREATED);
-    }
-
-    @PostMapping("/bookmark-post")
-    public ResponseEntity<String> bookmarkPost(@RequestBody BookmarkPostRequestDto bookmarkPostRequestDto){
-        try{
-            postService.bookmarkPost(bookmarkPostRequestDto);
-        }
-        catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>("Post bookmarked Successfully!",HttpStatus.CREATED);
-    }
-
-    @GetMapping("/get-posts/{email}")
-    public ResponseEntity getUserPosts(@PathVariable String email){
-        List<Post> userPosts;
-        userPosts = postService.getUserPosts(email);
-        /*
-        try{
-        }
-        catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-         */
-
-        return new ResponseEntity<>(userPosts,HttpStatus.CREATED);
+        return new ResponseEntity<>("Post create Successfully!!!",HttpStatus.CREATED);
     }
 
     @GetMapping("/get-posts")
-    public List<Post> getPosts(){
-        return postService.getPosts();
+    public ResponseEntity getPosts(){
+        List<Post> posts = postService.getPosts();
+        return new ResponseEntity(posts,HttpStatus.ACCEPTED);
     }
 }
